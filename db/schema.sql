@@ -11,7 +11,5 @@ create table issues
     created_at timestamp default current_timestamp,
     modified_at timestamp default current_timestamp on
     update current_timestamp,
-    detail varchar(7000),
-    relative_id int
-    not null
-);
+    username varchar(255)
+    );

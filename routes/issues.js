@@ -8,7 +8,11 @@ var { sanitizeBody } = require('express-validator/filter');
 /* GET issues listing. */
 router.get('/list-issues', function (req, res, next) {
 
-  var start = req.query.page, id = req.query.id;
+  function humanTime(created_at) {
+    return "20 hours";
+  }
+
+  var start = req.query.page, id = req.query.id, filter = req.query.filter, offset = 10;
 
   if (id) {
 
@@ -24,17 +28,27 @@ router.get('/list-issues', function (req, res, next) {
         next(createError(500));
         return;
       }
-      res.send(results);
+
+      res.json(results);
     });
 
   } else {
 
     // List of users
-    if (!start) start = 0;
+    if (!start) start = 1;
+    start -= 1;
+    if (start <= 0) start = 0;
     start = parseInt(start, 10);
+    start = start * offset;
 
-    let qtotal_issues = `select count(issue_id) as total_issues from issues`,
-      qget_issues = `SELECT * FROM issues limit ?, ?`;
+    if (!filter) filter = 0;
+    if (!(filter in [0, 1])) {
+      filter = 0;
+    }
+    console.log("Filter", filter);
+
+    let qtotal_issues = `select count(issue_id) as issues_count, status from issues group by status`,
+      qget_issues = `SELECT * FROM issues where status = ? limit ?, ?`;
 
 
     db.query({
@@ -46,20 +60,38 @@ router.get('/list-issues', function (req, res, next) {
         next(createError(500));
         return;
       }
-      var total_issues = results[0].total_issues;
-      if (start > total_issues) start = 0;
+      var closed_issues = 0, opened_issues = 0, total_issues = 0;
+      console.log(results);
+      for (let i = 0; i < results.length; i++) {
+        let obj = results[i];
+        if (obj.status === 0) {
+          opened_issues = obj.issues_count;
+        } else {
+          closed_issues += obj.issues_count;
+        }
+      }
+      total_issues = opened_issues + closed_issues;
+      console.log(opened_issues, closed_issues, total_issues);
 
+      console.log("start", start);
       db.query({
         sql: qget_issues,
         timeout: 40000, // 40s
-        values: [start, start + 10]
+        values: [filter, start, offset]
       }, function (errors, results, feilds) {
         if (errors) {
           console.log("Error ", errors);
           next(createError(500));
           return;
         }
-        res.send(results);
+
+        let processed_results = {
+          opened_issues,
+          closed_issues,
+          results,
+        };
+
+        res.json(processed_results);
       });
     });
   }
@@ -70,13 +102,14 @@ router.post('/add-issue', [
 
   body('title')
     .trim()
-    .escape()
     .isLength({ min: 2, max: 255 }).withMessage("Length of title should be more then 2 and less then 255")
     .isString().withMessage("Title should be string"),
 
+  body('username')
+    .trim(),
+
   body('detail')
     .trim()
-    .escape()
     .isLength({ min: 10, max: 7000 }).withMessage("Write some more descriptive report for your bug")
 
 ], function (req, res, next) {
@@ -87,23 +120,33 @@ router.post('/add-issue', [
     return res.status(400).json({ errors: errors.array() });
   }
 
+  const { title, detail, username } = req.body;
+
   db.query({
-    sql: 'INSERT INTO issues(title, detail) values(?, ?)',
+    sql: 'INSERT INTO issues(title, detail, username) values(?, ?, ?)',
     timeout: 40000, // 40s
-    values: [db.escape(req.body.title), db.escape(req.body.detail)]
+    values: [title, detail, username]
   }, function (errors, results, feilds) {
     if (errors) {
       console.log("Error ", errors);
       next(createError(500));
       return;
     }
-    console.log(results);
-    res.send(results);
+    let new_ = {
+      title,
+      detail,
+      username,
+      created_at: new Date(),
+      modified_at: new Date(),
+      issue_id: results.insertedId,
+      datetostring: "20 hours"
+    }
+    res.json(new_);
   });
 });
 
 /* Update Issue */
-router.post('/update-issue', [
+router.put('/update-issue', [
 
   body('title')
     .trim()
@@ -136,8 +179,7 @@ router.post('/update-issue', [
       next(createError(500));
       return;
     }
-    console.log(results);
-    res.send(results);
+    res.json(results);
   });
 });
 
