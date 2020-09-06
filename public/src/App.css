@@ -1,0 +1,11 @@
+details-dialog {
+    overflow: auto;
+    width: 448px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-color: #444d56;
+    box-shadow: 0 0 18px rgba(0,0,0,.4);
+    border-radius: 6px;
+}
