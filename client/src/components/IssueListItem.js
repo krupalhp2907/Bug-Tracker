@@ -2,17 +2,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getRandomInt } from "../util";
 
-function IssueListItem({ issue_id, detail: _detail, title: _title, status: _status = 0, username = "anonymous", filter = 0, handleFormSubmit, created_at, modified_at }) {
-    console.log(created_at, modified_at);
+function IssueListItem({ issue_id, detail: _detail, title: _title, status: _status, username = "anonymous", filter = 0, handleFormSubmit, created_at, modified_at }) {
     var issue_id_string = `issue_${issue_id}`;
     var target_route = `http://localhost:3000/list-issues?id=${issue_id}`;
-    target_route = "#"
+    target_route = "#";
 
     if (username === "") username = "anonymous";
     const [isLoading, setIsLoading] = useState(false);
     const [title, setTitle] = useState(_title);
     const [detail, setDetail] = useState(_detail);
-    const [status, setStatus] = useState(_status);
+    const [status, setStatus] = useState(filter);
 
     var status_string = _status == 0 ? 'opened' : 'closed';
 
@@ -30,6 +29,8 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
         });
     }
 
+
+
     return (
         <>
             <div id={issue_id_string}
@@ -42,10 +43,10 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
                                 filter === 0 ?
                                     <svg className="octicon octicon-issue-opened open" viewBox="0 0 16 16"
                                         version="1.1" width="16" height="16" aria-hidden="true">
-                                        <path fill-rule="evenodd"
+                                        <path fillRule="evenodd"
                                             d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z" />
                                     </svg> :
-                                    <svg class="octicon octicon-issue-closed closed" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z"></path></svg>
+                                    <svg class="octicon octicon-issue-closed closed" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fillRule="evenodd" d="M1.5 8a6.5 6.5 0 0110.65-5.003.75.75 0 00.959-1.153 8 8 0 102.592 8.33.75.75 0 10-1.444-.407A6.5 6.5 0 011.5 8zM8 12a1 1 0 100-2 1 1 0 000 2zm0-8a.75.75 0 01.75.75v3.5a.75.75 0 11-1.5 0v-3.5A.75.75 0 018 4zm4.78 4.28l3-3a.75.75 0 00-1.06-1.06l-2.47 2.47-.97-.97a.749.749 0 10-1.06 1.06l1.5 1.5a.75.75 0 001.06 0z"></path></svg>
                             }
                         </span>
                     </div>
@@ -67,7 +68,7 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
                                     aria-label="Close dialog" data-close-dialog>
                                     <svg className="octicon octicon-x" viewBox="0 0 16 16" version="1.1" width="16"
                                         height="16" aria-hidden="true">
-                                        <path fill-rule="evenodd"
+                                        <path fillRule="evenodd"
                                             d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z" />
                                     </svg>
                                 </button>
@@ -75,7 +76,7 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
                                     <div className="mt-3 mb-2 text-center">
                                         <svg height="60" className="octicon octicon-comment-discussion text-blue"
                                             viewBox="0 0 24 24" version="1.1" width="60" aria-hidden="true">
-                                            <path fill-rule="evenodd"
+                                            <path fillRule="evenodd"
                                                 d="M1.75 1A1.75 1.75 0 000 2.75v9.5C0 13.216.784 14 1.75 14H3v1.543a1.457 1.457 0 002.487 1.03L8.061 14h6.189A1.75 1.75 0 0016 12.25v-9.5A1.75 1.75 0 0014.25 1H1.75zM1.5 2.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v9.5a.25.25 0 01-.25.25h-6.5a.75.75 0 00-.53.22L4.5 15.44v-2.19a.75.75 0 00-.75-.75h-2a.25.25 0 01-.25-.25v-9.5z" />
                                             <path
                                                 d="M22.5 8.75a.25.25 0 00-.25-.25h-3.5a.75.75 0 010-1.5h3.5c.966 0 1.75.784 1.75 1.75v9.5A1.75 1.75 0 0122.25 20H21v1.543a1.457 1.457 0 01-2.487 1.03L15.939 20H10.75A1.75 1.75 0 019 18.25v-1.465a.75.75 0 011.5 0v1.465c0 .138.112.25.25.25h5.5a.75.75 0 01.53.22l2.72 2.72v-2.19a.75.75 0 01.75-.75h2a.25.25 0 00.25-.25v-9.5z" />
@@ -88,8 +89,8 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
                                             described in assessment. No security is provided anyone can edit any open issue.
                                         </p>
 
-                                        <form className="js-signup-form" autocomplete="off"
-                                            accept-charset="UTF-8" method="post"
+                                        <form className="js-signup-form" autoComplete="off"
+                                            acceptCharset="UTF-8" method="post"
                                             onSubmit={handleFormSubmit_}
                                         >
                                             <p className="text-center mb-4">Issue created <strong>20 hours</strong> ago and last modified <strong>13 hours</strong> ago.</p>
@@ -99,11 +100,11 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
 
                                             <dl className="form-group">
                                                 <dt className="input-label"><label name="username"
-                                                    autocapitalize="off" autofocus="autofocus"
-                                                    for="user_username">Issue submitted by</label></dt>
-                                                <dd><input name="username" autocapitalize="off" autofocus="autofocus"
+                                                    autoCapitalize="off" autoFocus="autofocus"
+                                                    htmlFor="user_username">Issue submitted by</label></dt>
+                                                <dd><input name="username" autoCapitalize="off" autoFocus="autofocus"
                                                     className="form-control" type="text" id="user_username"
-                                                    autocomplete="off" spellcheck="false" placeholder="Can be empty. Just for demo."
+                                                    autoComplete="off" spellCheck="false" placeholder="Can be empty. Just for demo."
                                                     disabled={true}
                                                     value={username}
                                                 /></dd>
@@ -112,11 +113,11 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
 
                                             <dl className="form-group">
                                                 <dt className="input-label"><label name="title"
-                                                    autocapitalize="off" autofocus="autofocus"
-                                                    for="issue_title">Issue Title</label></dt>
-                                                <dd><input name="title" autocapitalize="off" autofocus="autofocus"
+                                                    autoCapitalize="off" autoFocus="autofocus"
+                                                    htmlFor="issue_title">Issue Title</label></dt>
+                                                <dd><input name="title" autoCapitalize="off" autoFocus="autofocus"
                                                     className="form-control" type="text" id="issue_title"
-                                                    autocomplete="off" spellcheck="false" placeholder="Issue title should be more then 2 and less then 255 characters."
+                                                    autoComplete="off" spellCheck="false" placeholder="Issue title should be more then 2 and less then 255 characters."
                                                     value={title}
                                                     onChange={(e) => setTitle(e.target.value)}
                                                 /></dd>
@@ -124,7 +125,7 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
 
                                             <dl className="form-group">
                                                 <dt className="input-label"><label name="detail"
-                                                    for="issue_detail">Issue report</label></dt>
+                                                    htmlFor="issue_detail">Issue report</label></dt>
                                                 <dd><textarea name="detail" id="issue_detail"
                                                     placeholder="Issue report should be descriptive i.e more then 10 letters" aria-label="Comment body"
                                                     className="form-control input-contrast comment-form-textarea js-comment-field js-paste-markdown js-task-list-field js-quick-submit js-size-to-fit js-session-resumable js-saved-reply-shortcut-comment-field"
@@ -137,14 +138,15 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
 
                                             <dl className="form-group">
                                                 <dt className="input-label"><label name="detail"
-                                                    for="issue_status">Issue report</label></dt>
+                                                    htmlFor="issue_status">Issue report</label></dt>
                                                 <dd>
                                                     <select className="width-100 form-select" id="issue_status" style={{ "cursor": "pointer" }}
                                                         onChange={(e) => setStatus(e.target.value)}
                                                         name="status"
+                                                        value={status}
                                                     >
-                                                        <option selected={filter == 1 ? "selected" : ""} value="1">Close</option>
-                                                        <option selected={filter == 0 ? "selected" : ""} value="0">Open</option>
+                                                        <option value="0">Open</option>
+                                                        <option value="1">Close</option>
 
                                                     </select>
                                                 </dd>
@@ -189,7 +191,7 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
                                     <svg className="octicon octicon-git-pull-request v-align-middle"
                                         viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                         aria-hidden="true">
-                                        <path fill-rule="evenodd"
+                                        <path fillRule="evenodd"
                                             d="M7.177 3.073L9.573.677A.25.25 0 0110 .854v4.792a.25.25 0 01-.427.177L7.177 3.427a.25.25 0 010-.354zM3.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122v5.256a2.251 2.251 0 11-1.5 0V5.372A2.25 2.25 0 011.5 3.25zM11 2.5h-1V4h1a1 1 0 011 1v5.628a2.251 2.251 0 101.5 0V5A2.5 2.5 0 0011 2.5zm1 10.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0zM3.75 12a.75.75 0 100 1.5.75.75 0 000-1.5z">
                                         </path>
                                     </svg>
@@ -231,7 +233,7 @@ function IssueListItem({ issue_id, detail: _detail, title: _title, status: _stat
                                 aria-label="2 comments">
                                 <svg className="octicon octicon-comment v-align-middle" viewBox="0 0 16 16"
                                     version="1.1" width="16" height="16" aria-hidden="true">
-                                    <path fill-rule="evenodd"
+                                    <path fillRule="evenodd"
                                         d="M2.75 2.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h2a.75.75 0 01.75.75v2.19l2.72-2.72a.75.75 0 01.53-.22h4.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25H2.75zM1 2.75C1 1.784 1.784 1 2.75 1h10.5c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0113.25 12H9.06l-2.573 2.573A1.457 1.457 0 014 13.543V12H2.75A1.75 1.75 0 011 10.25v-7.5z">
                                     </path>
                                 </svg>

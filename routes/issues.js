@@ -45,7 +45,6 @@ router.get('/list-issues', function (req, res, next) {
     if (!(filter in [0, 1])) {
       filter = 0;
     }
-    console.log("Filter", filter);
 
     let qtotal_issues = `select count(issue_id) as issues_count, status from issues group by status`,
       qget_issues = `SELECT * FROM issues where status = ? order by created_at desc limit ?, ?`;
@@ -61,7 +60,6 @@ router.get('/list-issues', function (req, res, next) {
         return;
       }
       var closed_issues = 0, opened_issues = 0, total_issues = 0;
-      console.log(results);
       for (let i = 0; i < results.length; i++) {
         let obj = results[i];
         if (obj.status === 0) {
@@ -71,9 +69,7 @@ router.get('/list-issues', function (req, res, next) {
         }
       }
       total_issues = opened_issues + closed_issues;
-      console.log(opened_issues, closed_issues, total_issues);
 
-      console.log("start", start);
       db.query({
         sql: qget_issues,
         timeout: 40000, // 40s
@@ -84,6 +80,7 @@ router.get('/list-issues', function (req, res, next) {
           next(createError(500));
           return;
         }
+
 
         let processed_results = {
           opened_issues,
@@ -128,11 +125,9 @@ router.post('/add-issue', [
     values: [title, detail, username]
   }, function (errors, results, feilds) {
     if (errors) {
-      console.log("Error ", errors);
       next(createError(500));
       return;
     }
-    console.log(results);
     let new_ = {
       title,
       detail,
@@ -142,7 +137,6 @@ router.post('/add-issue', [
       issue_id: results.insertId,
       datetostring: "20 hours"
     }
-    console.log(new_);
     res.json(new_);
   });
 });
@@ -171,7 +165,6 @@ router.put('/update-issue', [
 
   var id = req.query.id;
   var status = req.body.status;
-  console.log(status);
   if (!status) status = 0;
 
   db.query({
@@ -204,7 +197,6 @@ router.delete('/delete-issue', function (req, res, next) {
       next(createError(500));
       return;
     }
-    console.log(results);
     res.send(results);
   });
 

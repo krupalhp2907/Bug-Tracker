@@ -17,7 +17,7 @@ function Status({ open, close, filter, handlePageChange }) {
             >
                 <svg className="octicon octicon-issue-opened" viewBox="0 0 16 16" version="1.1" width="16"
                     height="16" aria-hidden="true">
-                    <path fill-rule="evenodd"
+                    <path fillRule="evenodd"
                         d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z" />
                 </svg>
                 {open} Open
@@ -32,7 +32,7 @@ function Status({ open, close, filter, handlePageChange }) {
             >
                 <svg className="octicon octicon-check" viewBox="0 0 16 16" version="1.1" width="16" height="16"
                     aria-hidden="true">
-                    <path fill-rule="evenodd"
+                    <path fillRule="evenodd"
                         d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
                 </svg>
                 {close} Closed
@@ -101,7 +101,7 @@ function NoIssue({ open, close, filter }) {
         <>
             {visible && <div class="blankslate blankslate-spacious blankslate-large border-0">
                 <div class="container-md">
-                    <svg height="40" class="octicon octicon-issue-opened blankslate-icon" viewBox="0 0 24 24" version="1.1" width="40" aria-hidden="true"><path d="M12 7a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0112 7zm1 9a1 1 0 11-2 0 1 1 0 012 0z"></path><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg>
+                    <svg height="40" class="octicon octicon-issue-opened blankslate-icon" viewBox="0 0 24 24" version="1.1" width="40" aria-hidden="true"><path d="M12 7a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0112 7zm1 9a1 1 0 11-2 0 1 1 0 012 0z"></path><path fillRule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg>
                     <h3 >{header}</h3>
                     <p dangerouslySetInnerHTML={{ __html: desc }}></p>
                 </div>
@@ -180,7 +180,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                 </summary>
                                 <div className="SelectMenu SelectMenu--hasFilter right-0" role="menu"
                                     src="/twbs/bootstrap/issues/show_menu_content?partial=issues%2Ffilters%2Fauthors_content&amp;q=is%3Aissue+is%3Aopen"
-                                    preload>
+                                >
                                     <div className="SelectMenu-modal">
                                         <header className="SelectMenu-header">
                                             <span className="SelectMenu-title">Filter by author</span>
@@ -188,7 +188,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                 data-toggle-for="author-select-menu">
                                                 <svg aria-label="Close menu" className="octicon octicon-x"
                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z" />
                                                 </svg>
                                             </button>
@@ -196,8 +196,8 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                         <div className="SelectMenu-filter">
                                             <input className="SelectMenu-input form-control js-filterable-field"
                                                 id="author-filter-field" type="text" placeholder="Filter users"
-                                                aria-label="Filter users" autocomplete="off" spellcheck="false"
-                                                autofocus />
+                                                aria-label="Filter users" autoComplete="off" spellCheck="false"
+                                                autoFocus />
                                         </div>
                                         <div className="SelectMenu-list select-menu-list" data-filter="author">
                                             <div data-filterable-for="author-filter-field"
@@ -207,7 +207,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                     <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                         viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                         aria-hidden="true">
-                                                        <path fill-rule="evenodd"
+                                                        <path fillRule="evenodd"
                                                             d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z">
                                                         </path>
                                                     </svg>
@@ -222,7 +222,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                     <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                         viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                         aria-hidden="true">
-                                                        <path fill-rule="evenodd"
+                                                        <path fillRule="evenodd"
                                                             d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z">
                                                         </path>
                                                     </svg>
@@ -237,7 +237,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                     <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                         viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                         aria-hidden="true">
-                                                        <path fill-rule="evenodd"
+                                                        <path fillRule="evenodd"
                                                             d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z">
                                                         </path>
                                                     </svg>
@@ -251,7 +251,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
 
                                             <form className="select-menu-new-item-form js-new-item-form"
                                                 action="/twbs/bootstrap/issues?q=is%3Aopen+is%3Aissue"
-                                                accept-charset="UTF-8" method="get">
+                                                acceptCharset="UTF-8" method="get">
                                                 <button className="SelectMenu-item d-block js-new-item-value"
                                                     type="submit" name="author" role="menuitem">
                                                     <div className="text-bold f5">author:<span
@@ -297,7 +297,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                 data-toggle-for="sort-select-menu">
                                                 <svg aria-label="Close menu" className="octicon octicon-x"
                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z" />
                                                 </svg>
                                             </button>
@@ -309,7 +309,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                 <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                     aria-hidden="true">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
                                                 </svg>
                                                 <span>Newest</span>
@@ -319,7 +319,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                 <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                     aria-hidden="true">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
                                                 </svg>
                                                 <span>Oldest</span>
@@ -329,7 +329,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                 <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                     aria-hidden="true">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
                                                 </svg>
                                                 <span>Recently updated</span>
@@ -339,7 +339,7 @@ function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
                                                 <svg className="octicon octicon-check SelectMenu-icon SelectMenu-icon--check"
                                                     viewBox="0 0 16 16" version="1.1" width="16" height="16"
                                                     aria-hidden="true">
-                                                    <path fill-rule="evenodd"
+                                                    <path fillRule="evenodd"
                                                         d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z" />
                                                 </svg>
                                                 <span>Least recently updated</span>

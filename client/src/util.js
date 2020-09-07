@@ -30,7 +30,6 @@ function addNewIssue(e, cb) {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            alert("Logging data");
             cb.call(this, null, data);
         })
         .catch(err => {
@@ -48,12 +47,10 @@ function updateIssue(id, new_, cb) {
     fetch(postUri, requestOptions)
         .then(response => response.json())
         .then(data => {
-            alert("Donw");
             cb.call(this, null, data);
         })
         .catch(err => {
             alert("error");
-            console.log("error", err);
             cb.call(this, err, null);
         });
 }
