@@ -23,7 +23,7 @@ function NewIssue({ handleFormSubmit }) {
         <details className="details-reset details-overlay details-overlay-dark">
             <summary className="btn btn-primary" role="button">
                 New issue
-        </summary>
+            </summary>
             <details-dialog className="Box Box--overlay d-flex flex-column anim-fade-in fast overflow-auto"
                 aria-label="Sign up for GitHub" role="dialog" aria-modal="true">
                 <button className="position-absolute p-4 right-0 btn-link muted-link" type="button"

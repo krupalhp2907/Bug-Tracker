@@ -122,7 +122,7 @@ NoIssue.prototype = {
 }
 
 
-function IssueList({ list, handlePageChange, filter }) {
+function IssueList({ list, handlePageChange, filter, handleFormSubmit }) {
     let issues_ = list;
     if (list == {}) {
         issues_ = defaultStateIssueList();
@@ -371,6 +371,9 @@ function IssueList({ list, handlePageChange, filter }) {
                                         status={value.status}
                                         username={value.username}
                                         filter={filter}
+                                        created_at={value.created_at}
+                                        modified_at={value.modified_at}
+                                        handleFormSubmit={handleFormSubmit}
                                     />
                                 );
                             })

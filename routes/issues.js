@@ -48,7 +48,7 @@ router.get('/list-issues', function (req, res, next) {
     console.log("Filter", filter);
 
     let qtotal_issues = `select count(issue_id) as issues_count, status from issues group by status`,
-      qget_issues = `SELECT * FROM issues where status = ? limit ?, ?`;
+      qget_issues = `SELECT * FROM issues where status = ? order by created_at desc limit ?, ?`;
 
 
     db.query({
@@ -132,15 +132,17 @@ router.post('/add-issue', [
       next(createError(500));
       return;
     }
+    console.log(results);
     let new_ = {
       title,
       detail,
       username,
       created_at: new Date(),
       modified_at: new Date(),
-      issue_id: results.insertedId,
+      issue_id: results.insertId,
       datetostring: "20 hours"
     }
+    console.log(new_);
     res.json(new_);
   });
 });
@@ -168,11 +170,14 @@ router.put('/update-issue', [
   }
 
   var id = req.query.id;
+  var status = req.body.status;
+  console.log(status);
+  if (!status) status = 0;
 
   db.query({
-    sql: 'UPDATE issues set title = ?, detail = ? where issue_id = ?',
+    sql: 'UPDATE issues set title = ?, detail = ?, status = ? where issue_id = ?',
     timeout: 40000, // 40s
-    values: [req.body.title, req.body.detail, id]
+    values: [req.body.title, req.body.detail, status, id]
   }, function (errors, results, feilds) {
     if (errors) {
       console.log("Error ", errors);

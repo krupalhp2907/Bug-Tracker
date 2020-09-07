@@ -40,8 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Server Routes imported above
 */
-// app.use('/', indexRouter);
+// Must before indexRoute
 app.use('/', issuesRouter);
+app.use('/', indexRouter);
 
 /**
  * Error Handeling routes for users 

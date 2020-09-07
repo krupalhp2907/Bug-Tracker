@@ -29,9 +29,31 @@ function addNewIssue(e, cb) {
     fetch(postUri, requestOptions)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
+            alert("Logging data");
             cb.call(this, null, data);
         })
         .catch(err => {
+            cb.call(this, err, null);
+        });
+}
+
+function updateIssue(id, new_, cb) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(new_)
+    };
+    const postUri = "http://localhost:5000/update-issue?id=" + id;
+    fetch(postUri, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            alert("Donw");
+            cb.call(this, null, data);
+        })
+        .catch(err => {
+            alert("error");
+            console.log("error", err);
             cb.call(this, err, null);
         });
 }
@@ -85,7 +107,8 @@ export default Object.freeze({
     addNewIssue,
     pagiDistribution,
     sortIssues,
-    getRandomInt
+    getRandomInt,
+    updateIssue
 });
 
-export { getIssuesByPage, defaultStateIssueList, addNewIssue, pagiDistribution, sortIssues, getRandomInt };
+export { getIssuesByPage, defaultStateIssueList, addNewIssue, pagiDistribution, sortIssues, getRandomInt, updateIssue };

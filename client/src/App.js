@@ -7,7 +7,7 @@ import NewIssue from './components/NewIssue';
 
 import { DefaultLayout } from "./layouts";
 
-import server, { getIssuesByPage, defaultStateIssueList, addNewIssue } from './util';
+import server, { getIssuesByPage, defaultStateIssueList, addNewIssue, updateIssue } from './util';
 import Pagitation from './components/Pagitaion';
 
 function App() {
@@ -24,22 +24,51 @@ function App() {
     addNewIssue({
       username: e.target.username.value,
       detail: e.target.detail.value,
-      title: e.target.title.value
+      title: e.target.title.value,
+      status: e.target.status && e.target.status.value || 0
     }, (err, new_) => {
       console.log(new_);
       if (typeof (cb) === "function") {
         cb.call(this, err, new_);
       }
-      let new_issues_list = [new_, ...issues.results]
-      if (new_issues_list.length > 10) {
-        new_issues_list = new_issues_list.slice(0, 10);
+
+      // setIssues({
+      //   ...issues,
+      //   opened_issues: issues.opened_issues + 1,
+      //   results: new_issues_list
+      // })
+
+      window.location.reload(false);
+
+    })
+  }
+
+  console.log("Logging issues", issues);
+
+  function handleSubmitUpdate(e, status, cb) {
+    e.preventDefault();
+
+    let id = e.target.issue_id.value;
+    alert(status);
+    let updated_ = {
+      username: e.target.username.value,
+      detail: e.target.detail.value,
+      title: e.target.title.value,
+      status: status,
+      created_at: e.target.created_at.value,
+    }
+    updateIssue(id, updated_, (err, new_) => {
+      console.log(new_);
+      if (typeof (cb) === "function") {
+        cb.call(this, err, new_);
       }
-      console.log(new_issues_list);
-      setIssues({
-        ...issues,
-        opened_issues: issues.opened_issues + 1,
-        results: new_issues_list
-      })
+
+      // setIssues({
+      //   ...issues,
+      //   results: old_
+      // })
+
+      window.location.reload(false);
     })
   }
 
@@ -162,7 +191,7 @@ function App() {
 
       {appLoading && <div>Loading...</div>}
 
-      {!appLoading && <IssueList list={issues} handlePageChange={handlePageChange} filter={filter} />}
+      {!appLoading && <IssueList list={issues} handlePageChange={handlePageChange} filter={filter} handleFormSubmit={handleSubmitUpdate} />}
 
       {!appLoading && results_length > 10 && <Pagitation total_issues={results_length} update={handlePageChange} initial_page={1} />}
 

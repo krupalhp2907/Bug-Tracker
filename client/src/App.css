@@ -9,3 +9,7 @@ details-dialog {
     box-shadow: 0 0 18px rgba(0,0,0,.4);
     border-radius: 6px;
 }
+
+.width-100 {
+    width: 100%;
+}
